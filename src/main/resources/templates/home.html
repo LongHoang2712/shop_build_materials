@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Website Title -->
+    <title>VLXD KR HOANG</title>
+    <!-- For IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- For Resposive Device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- For Window Tab Color -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#061948">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#061948">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#061948">
+
+    <!-- Favicon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="56x56" href="../btrap/images/fav-icon/icon.png">
+    <!-- Main style sheet -->
+    <link rel="stylesheet" type="text/css" href="../btrap/css/style.css">
+    <!-- responsive style sheet -->
+    <link rel="stylesheet" type="text/css" href="../btrap/css/responsive.css">
+
+    <!-- Fix Internet Explorer ______________________________________-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="../btrap/vendor/html5shiv.js"></script>
+    <script src="../btrap/vendor/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="main-page-wrapper">
+
+    <!-- ===================================================
+        Loading Transition
+    ==================================================== -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
+
+
+    <!--
+    =============================================
+        Theme Header Two
+    ==============================================
+    -->
+    <header class="header-two">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-8 col-12">
+                        <ul class="left-widget">
+                            <li>Phone: (+84) 988056515</li>
+                            <li>
+                                <div id="polyglotLanguageSwitcher">
+                                    <form action="#">
+                                        <select id="polyglot-language-options">
+                                            <option id="en" value="en" selected>Tiếng Việt</option>
+                                            <option id="fr" value="fr">Tiếng Pháp</option>
+                                            <option id="de" value="de">Tiếng Đức</option>
+                                            <option id="it" value="it">Tiếng Ý</option>
+                                            <option id="es" value="es">Tiếng Tây Ban Nha</option>
+                                        </select>
+                                    </form>
+                                </div> <!-- End #polyglotLanguageSwitcher -->
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-4 col-12">
+                        <ul class="social-icon" >
+                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li>
+                                <a th:if="${session.customer ==null}"  href="/login"><i class="fas fa-sign-out-alt" style="color: #ffffff;" aria-hidden="true"></i> Sign In</a>
+                                <a th:unless="${session.customer ==null}"  href="/logout"><i class="fas fa-sign-out-alt" style="color: #ffffff;" aria-hidden="true"></i> Sign Out</a>
+                            </li>
+                            <li th:unless="${session.customer ==null}">
+
+                                <a href="/detail-bill-customer" style="color: #ffffff;" >Bill Paid</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.top-header -->
+
+        <div class="theme-menu-wrapper">
+            <div class="container">
+                <div class="bg-wrapper clearfix">
+                    <div class="logo float-left"><a href="/homepage"><img class="logmer"
+                                                                          src="../btrap/images/logoPro.png" alt=""></a>
+                    </div>
+                    <!-- ============== Menu Warpper ================ -->
+                    <div class="menu-wrapper float-left">
+                        <nav id="mega-menu-holder" class="clearfix">
+                            <ul class="clearfix">
+                                <li class="active"><a href="/homepage">Home</a></li>
+                                <li class="active">
+                                    <a href="/category">Category</a>
+                                    <ul class="dropdown">
+                                        <li th:each="category :${list_cate}">
+                                            <a href="#" th:text="${category.name}"></a>
+                                            <ul th:each="product :${category.getProductSet()}" class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a th:href="@{/detail/{id}(id=${product.getId()})}" th:text="${product.name}"></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="active" >
+                                    <a href="/manufacturer">Manufacturer</a>
+                                    <ul class="dropdown">
+                                        <li th:each="manu :${list_manu}">
+                                            <a href="#" th:text="${manu.name}"></a>
+                                            <ul th:each="product :${manu.getProductSet1()}" class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a th:href="@{/detail/{id}(id=${product.getId()})}"  th:text="${product.name}"></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="/product">Product</a></li>
+                            </ul>
+                        </nav> <!-- /#mega-menu-holder -->
+                    </div> <!-- /.menu-wrapper -->
+                    <div class="right-widget float-right">
+                        <ul>
+                            <li class="cart-icon">
+                                <a href="/shopping-cart"><i class="flaticon-tool"></i><span th:if="${session.tong != null}" th:text="${session.tong}"></span>
+                                    <span th:if="${session.tong == null}" th:text="0"></span></a>
+                            </li>
+                            <li class="search-option">
+                                <div class="dropdown">
+                                    <button type="button" class="dropdown-toggle" data-toggle="dropdown"><i
+                                            class="fa fa-search" aria-hidden="true"></i></button>
+                                    <form th:action="@{search_homepage}" method="post" class="dropdown-menu">
+                                        <input name="txt_search" th:value="${txt_search}" type="text" Placeholder="Enter Your Search">
+                                        <button type="submit"><i class="fa fa-search" ></i></button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> <!-- /.right-widget -->
+                </div> <!-- /.bg-wrapper -->
+            </div> <!-- /.container -->
+        </div> <!-- /.theme-menu-wrapper -->
+    </header>  <!-- /.header-one -->
+
+
+    <!--
+    =============================================
+        Theme Main Banner
+    ==============================================
+    -->
+    <div id="theme-main-banner" class="banner-one meraba">
+        <div data-src="../btrap/images/anhlogo1.jpg">
+            <div class="camera_caption">
+                <div class="container">
+                    <p class="wow fadeInUp animated" style="color: white">KR HOÀNG - Construction Materials</p>
+                    <h1 class="wow fadeInUp animated" data-wow-delay="0.2s" style="color: white ; font-family: 'Times New Roman'">Specializing in Wholesale - Retai of <br>Materials - Furniture</h1>
+                    <a href="about.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">See Product List</a>
+                </div> <!-- /.container -->
+            </div> <!-- /.camera_caption -->
+        </div>
+        <div data-src="../btrap/images/anhlogo2.jpg">
+            <div class="camera_caption">
+                <div class="container">
+                    <p class="wow fadeInUp animated white">Market coverage nationwide</p>
+                    <h1 class="wow fadeInUp animated white" data-wow-delay="0.2s" style=" font-family: 'Times New Roman'">Cooperate together<br>DELTA - COMA19
+                    </h1>
+                    <a href="about.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">See Large factories</a>
+                </div> <!-- /.container -->
+            </div> <!-- /.camera_caption -->
+        </div>
+        <div data-src="../btrap/images/anhlogo4.jpg">
+            <div class="camera_caption">
+                <div class="container">
+                    <p class="wow fadeInUp animated" style="color: white" >Contract for Public Works</p>
+                    <h1 class="wow fadeInUp animated" data-wow-delay="0.2s" style="color: white; font-family: 'Times New Roman'">Park - Flower Garden<br>Asphalt Road - Alley Road</h1>
+                    <a href="/register" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">Register an account to receive incentives</a>
+                </div> <!-- /.container -->
+            </div> <!-- /.camera_caption -->
+        </div>
+    </div> <!-- /#theme-main-banner -->
+
+
+    <!--
+    =============================================
+        CallOut Banner
+    ==============================================
+    -->
+    <div class="callout-banner section-spacing">
+        <div class="container clearfix">
+            <h3 class="title">Are you looking for a reputable construction materials supplier?</h3>
+            <p>KR HOANG company provides construction materials and furniture for 60% of Vietnamese people and 50% for public works in the capital Hanoi.</p>
+            <a href="/product" class="theme-button-one">Buy Now</a>
+        </div>
+    </div> <!-- /.callout-banner -->
+
+
+    <!--
+    =============================================
+        Our Solution
+    ==============================================
+    -->
+    <div class="our-solution section-spacing">
+        <div class="container">
+            <div class="theme-title-one">
+                <h2 style=" font-family: 'Times New Roman'">COMPANY SERVICES</h2>
+            </div> <!-- /.theme-title-one -->
+            <div class="wrapper">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-solution-block">
+                            <img src="../btrap/images/icon/suitcase.svg" alt="" class="icon">
+                            <h5><a href="/product">Product</a></h5>
+                            <p>Diverse products with many designs</p>
+                        </div> <!-- /.single-solution-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-solution-block">
+                            <img src="../btrap/images/icon/money.svg" alt="" class="icon">
+                            <h5><a href="/category">Category</a></h5>
+                            <p>Many types of construction materials and equipment </p>
+                        </div> <!-- /.single-solution-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-solution-block">
+                            <img src="../btrap/images/icon/costs-revenues-chart.svg" alt="" class="icon">
+                            <h5><a href="/manufacturer">Manufacturer</a></h5>
+                            <p>Associated with many large factories</p>
+                        </div> <!-- /.single-solution-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-solution-block">
+                            <img src="../btrap/images/icon/target.svg" alt="" class="icon">
+                            <h5><p>Reputation</p></h5>
+                            <p>Reputation is always put first </p>
+                        </div> <!-- /.single-solution-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-solution-block">
+                            <img src="../btrap/images/icon/analysis.svg" alt="" class="icon">
+                            <h5><p>Quality</p></h5>
+                            <p>Quality always comes with reputation, bringing joy to customers</p>
+                        </div> <!-- /.single-solution-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-solution-block">
+                            <img src="../btrap/images/icon/startup-rocket.svg" alt="" class="icon">
+                            <h5><p>After-sales </p></h5>
+                            <p>Service Long-term warranty gives customers peace of mind when using the product</p>
+                        </div> <!-- /.single-solution-block -->
+                    </div> <!-- /.col- -->
+                </div> <!-- /.row -->
+            </div> <!-- /.wrapper -->
+        </div> <!-- /.container -->
+    </div> <!-- /.our-solution -->
+
+
+    <!--
+    =============================================
+        About Company Stye Two
+    ==============================================
+    -->
+    <div class="about-compnay-two section-spacing">
+        <div class="overlay">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-lg-7 col-12 text">
+                        <div class="theme-title-one">
+                            <h2 style=" font-family: 'Times New Roman'">Register for a Shopping Account</h2>
+                        </div> <!-- /.theme-title-one -->
+                        <p>Registering to purchase is necessary so we can support you as promptly as possible. And also to verify your identity </p>
+                        <p>Note: KR HOANG staff will never ask for security-related information such as bank card passwords or any other passwords. </p>
+                        <img src="../btrap/images/signature.svg" alt="" class="sign">
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-5 col-12">
+                        <div class="quote-form">
+                            <form th:action="@{/register}" th:object="${user}"  method="post"  class="theme-form-one">
+                                <div class="row">
+                                    <div  class="col-md-12"><label for="name"></label><input type="text" th:field="*{name}" id="name" placeholder="Your Name *"></div>
+                                    <div class="col-md-6"><label for="phone_number"></label><input th:field="*{phone_number}" id="phone_number" type="text" placeholder="Your phone number *"></div>
+                                    <div class="col-md-6"><label for="email"></label><input th:field="*{email}" type="email" id="email" placeholder="Your Email"></div>
+                                    <div class="col-md-6"><label for="address"></label><input th:field="*{address}" id="address" type="text" placeholder="Your address" ></div>
+                                    <div class="col-md-6"><label for="password"></label><input th:field="*{password}" type="password" id="password"  placeholder="Password *"></div>
+                                </div> <!-- /.row -->
+                                <input type="submit" class="theme-button-one" value="Register"></input>
+                            </form>
+                        </div> <!-- /.quote-form -->
+                    </div>
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.overlay -->
+    </div> <!-- /.about-compnay-two -->
+
+
+    <!--
+    =============================================
+        Our Case
+    ==============================================
+    -->
+    <div class="our-case section-spacing">
+        <div class="container">
+            <div class="theme-title-one">
+                <h2 style=" font-family: 'Times New Roman'">Selling products</h2>
+                <p>Service always comes with quality and reputation</p>
+            </div> <!-- /.theme-title-one -->
+            <div class="wrapper">
+                <div class="row">
+                    <div th:each="product :${list_product}  " class="col-lg-4 col-sm-6 col-12">
+                        <div class="single-case-block">
+                            <img height="300" width="100" th:src="${product.getImage()}" alt="">
+                            <div class="hover-content">
+                                <div class="text clearfix">
+                                    <div class="float-left">
+                                        <h5><a href="#" th:text="${product.name}"></a></h5>
+                                        <p style="color: white">
+                                        <p th:text="${product.price}"></p>VND</p>
+                                    </div>
+                                    <a th:href="@{/detail/{id}(id=${product.getId()})}" class="details float-right"><i class="fa fa-long-arrow-right"
+                                                                               aria-hidden="true"></i></a>
+                                </div> <!-- /.text -->
+                            </div> <!-- /.hover-content -->
+                        </div> <!-- /.single-case-block -->
+                    </div> <!-- /.col- -->
+                </div> <!-- /.row -->
+            </div> <!-- /.wrapper -->
+            <div class="view-all"><a href="/product" class="theme-button-one"> See More</a></div>
+        </div> <!-- /.container -->
+    </div> <!-- /.our-case -->
+
+
+    <!--
+    =====================================================
+        Faq Section
+    =====================================================
+    -->
+    <div class="faq-section">
+        <div class="overlay">
+            <div class="container">
+                <div class="theme-title-one">
+                    <h2 style=" font-family: 'Times New Roman'">Frequently asked questions</h2>
+                    <p>Does your company provide construction materials at reasonable prices? </p>
+                </div> <!-- /.theme-title-one -->
+
+                <div class="wrapper row no-gutters">
+                    <div class="col-xl-6 col-lg-7 order-last">
+                        <div class="faq-content">
+                            <div class="accordion-one">
+                                <div class="panel-group theme-accordion" id="accordion">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                    1. Do you update prices according to the market?</a>
+                                            </h6>
+                                        </div>
+                                        <div id="collapse1" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p>We are always closely updating product prices.</p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /panel 1 -->
+                                    <div class="panel">
+                                        <div class="panel-heading active-panel">
+                                            <h6 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                                    2. Origin of materials?</a>
+                                            </h6>
+                                        </div>
+                                        <div id="collapse2" class="panel-collapse collapse show">
+                                            <div class="panel-body">
+                                                <p>Most are produced at large factories in provinces across the country such as Hai Phong, Quang Ninh, Yen Bai.</p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /panel 2 -->
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                                    3. Can we invite an expert to appraise?</a>
+                                            </h6>
+                                        </div>
+                                        <div id="collapse3" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p>Okay let me see the expert license so we can assist you as much as possible</p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /panel 3 -->
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                                    4. Can it be exported abroad?</a>
+                                            </h6>
+                                        </div>
+                                        <div id="collapse4" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p>We accept export contracts domestically and internationally. Please contact us via Email</p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /panel 4 -->
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                                                    5. Is the discounted product of poor quality?</a>
+                                            </h6>
+                                        </div>
+                                        <div id="collapse5" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p>These are high quality products, but because we need to clear stock to import new batches, we will reduce the price to a reasonable level.</p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /panel 5 -->
+                                </div> <!-- end #accordion -->
+                            </div> <!-- End of .accordion-one -->
+                        </div> <!-- /.faq-content -->
+                    </div> <!-- /.col- -->
+                    <div class="col-xl-6 col-lg-5 order-first">
+                        <div class="img-box"><a data-fancybox href="https://www.youtube.com/embed/ARoGZIN5oC4"
+                                                class="play"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                    </div>
+                </div> <!-- /.wrapper -->
+            </div> <!-- /.container -->
+        </div> <!-- /.overlay -->
+    </div> <!-- /.faq-section -->
+
+
+    <!--
+    =====================================================
+        Why Choose us
+    =====================================================
+    -->
+    <div class="why-choose-us section-spacing">
+        <div class="container">
+            <div class="theme-title-one">
+                <h2 style=" font-family: 'Times New Roman'">Media</h2>
+            </div> <!-- /.theme-title-one -->
+
+            <div class="wrapper">
+                <div class="row">
+                    <div class="col-lg-4 col-12">
+                        <div class="single-block">
+                            <img src="../btrap/images/fb.jpg" class="icon flaticon-puzzle">
+                            <h5><a href="#">Facebook</a></h5>
+                            <p>Hoàng Quốc Long</p>
+                        </div> <!-- /.single-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-12">
+                        <div class="single-block">
+                            <img src="../btrap/images/insta.jpg" class="icon flaticon-puzzle">
+                            <h5><a href="#">Instagram</a></h5>
+                            <p>long.hoangquoc.790 </p>
+                        </div> <!-- /.single-block -->
+                    </div> <!-- /.col- -->
+                    <div class="col-lg-4 col-12">
+                        <div class="single-block">
+                            <img src="../btrap/images/twit.jpg" class="icon flaticon-puzzle">
+                            <h5><a href="#">Twitter</a></h5>
+                            <p>vlxd.vn </p>
+                        </div> <!-- /.single-block -->
+                    </div> <!-- /.col- -->
+                </div> <!-- /.row -->
+            </div> <!-- /.wrapper -->
+        </div> <!-- /.container -->
+    </div> <!-- /.why-choose-us -->
+
+
+    <!--
+    =====================================================
+        Short Banner
+    =====================================================
+    -->
+    <div class="short-banner section-spacing" style="margin-top: 250px">
+        <div class="overlay">
+            <div class="container">
+                <h2 style=" font-family: 'Times New Roman'">Bringing a home to every home in  <br> The World</h2>
+            </div>
+        </div> <!-- /.overlay -->
+    </div> <!-- /.short-banner -->
+
+
+    <!--
+    =====================================================
+        Latest News
+    =====================================================
+    -->
+    <div class="our-blog latest-news section-spacing">
+        <div class="container">
+            <div class="theme-title-one">
+                <h2>SOME TYPICALL ARTICLES ABOUT OUR COMPANY</h2>
+                <p>Not only the company but each employee in the company are excellent individuals that exceed our expectations </p>
+            </div> <!-- /.theme-title-one -->
+            <div class="wrapper">
+                <div class="clearfix">
+                    <div class="latest-news-slider">
+                        <div class="item">
+                            <div class="single-blog">
+                                <div class="image-box">
+                                    <img src="../btrap/images/new1.jpg" alt="">
+                                    <div class="overlay"><a href="#" class="date">July 17, 2022</a></div>
+                                </div> <!-- /.image-box -->
+                                <div class="post-meta">
+                                    <h5 class="title"><a href="https://cafebiz.vn/can-canh-dai-cong-truong-noi-xay-dung-than-toc-2-benh-vien-da-chien-covid-19-o-tphcm-20210717083300477.chn">Together with the doctors' working group to prevent covid</a></h5>
+                                    <a href="https://cafebiz.vn/can-canh-dai-cong-truong-noi-xay-dung-than-toc-2-benh-vien-da-chien-covid-19-o-tphcm-20210717083300477.chn" class="read-more">READ MORE</a>
+                                </div> <!-- /.post-meta -->
+                            </div> <!-- /.single-blog -->
+                        </div> <!-- /.col- -->
+                        <div class="item">
+                            <div class="single-blog">
+                                <div class="image-box">
+                                    <img src="../btrap/images/new2.jpg" alt="">
+                                    <div class="overlay"><a href="#" class="date">February 7, 2022</a></div>
+                                </div> <!-- /.image-box -->
+                                <div class="post-meta">
+                                    <h5 class="title"><a href="https://baonamdinh.vn/channel/5085/202202/tren-cong-truong-thi-cong-nhung-cong-trinh-trong-diem-2549051/">On the construction site of key projects</a></h5>
+                                    <a href="https://baonamdinh.vn/channel/5085/202202/tren-cong-truong-thi-cong-nhung-cong-trinh-trong-diem-2549051/" class="read-more">READ MORE</a>
+                                </div> <!-- /.post-meta -->
+                            </div> <!-- /.single-blog -->
+                        </div> <!-- /.col- -->
+                        <div class="item">
+                            <div class="single-blog">
+                                <div class="image-box">
+                                    <img src="../btrap/images/new3.jpg" alt="">
+                                    <div class="overlay"><a href="#" class="date">April 15, 2021</a></div>
+                                </div> <!-- /.image-box -->
+                                <div class="post-meta">
+                                    <h5 class="title"><a href="https://cafef.vn/toan-canh-cong-truong-xay-dung-cau-vuot-song-gan-2000-ty-dong-o-bac-ninh-20210415142346769.chn">Panoramic view of the nearly 2,000 billion VND river crossing construction site in Bac Ninh</a></h5>
+                                    <a href="https://cafef.vn/toan-canh-cong-truong-xay-dung-cau-vuot-song-gan-2000-ty-dong-o-bac-ninh-20210415142346769.chn" class="read-more">READ MORE</a>
+                                </div> <!-- /.post-meta -->
+                            </div> <!-- /.single-blog -->
+                        </div> <!-- /.col- -->
+                    </div> <!-- /.latest-news-slider -->
+                </div> <!-- /.row -->
+            </div> <!-- /.wrapper -->
+        </div> <!-- /.container -->
+    </div> <!-- /.our-blog -->
+
+
+    <!--
+    =====================================================
+        Google Map
+    =====================================================
+    -->
+    <!-- Google Map -->
+    <!--<div class="google-map-one"><div class="map-canvas"></div></div> -->
+    <div id="google_map"></div>
+
+    <!--
+    =====================================================
+        Footer
+    =====================================================
+    -->
+    <footer class="theme-footer-two">
+        <div class="top-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-12 logo-widget">
+                        <div class="logo"><a href="index.html"><img class="logmer" src="../btrap/images/logoPro.png"
+                                                                    alt=""></a></div>
+                        <p>Company headquarters in Hanoi, Vietnam</p>
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div> <!-- /.logo-widget -->
+                    <div class="col-lg-2 col-sm-6 col-12 footer-list">
+                        <h6 class="title">EXPLORE</h6>
+                        <ul>
+                            <li><a href="/product">List Product</a></li>
+                            <li><a href="/category">List Category</a></li>
+                            <li><a href="/manufacturer">List Manufacturer</a></li>
+                            <li><a href="/homepage">HomePage</a></li>
+                            <li><a href="/login">Login</a></li>
+                        </ul>
+                    </div> <!-- /.footer-list -->
+                    <div class="col-lg-3 col-sm-6 col-12 footer-gallery">
+                        <h6 class="title">Scenic Vietnam</h6>
+                        <div class="wrapper">
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn1.1.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn1.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn2.2.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn2.2.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn3.3.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn3.3.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn4.4.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn4.4.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn5.5.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn5.5.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn6.6.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn6.6.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.footer-gallery -->
+
+                    <div class="col-lg-3 col-sm-6 col-12 contact-widget">
+                        <h6 class="title">CONTACT</h6>
+                        <ul>
+                            <li>
+                                <i class="flaticon-direction-signs"></i>
+                                22 Lane 131 Tran Phu, Ha Dong District, Ha Dong, Hanoi City, Vietnam
+                            </li>
+                            <li>
+                                <i class="flaticon-multimedia-1"></i>
+                                <p href="#">hoanglongtt8@gmail.com</p>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <p href="#">+84 988-056-515</p>
+                            </li>
+                        </ul>
+                    </div> <!-- /.contact-widget -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.top-footer -->
+        <div class="bottom-footer">
+            <div class="container">
+                <p>Make By <a class="white-link" href="https://www.facebook.com/long.hoangquoc.79/"> Hoang Quoc Long</a> / All Rights Reserved. </p>
+            </div>
+        </div> <!-- /.bottom-footer -->
+    </footer> <!-- /.theme-footer-two -->
+
+
+    <!-- Scroll Top Button -->
+    <button class="scroll-top tran3s">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </button>
+
+
+    <!-- Optional JavaScript _____________________________  -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery -->
+    <script src="../btrap/vendor/jquery.2.2.3.min.js"></script>
+    <!-- Popper js -->
+    <script src="../btrap/vendor/popper.js/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../btrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Camera Slider -->
+    <script src='../btrap/vendor/Camera-master/scripts/jquery.mobile.customized.min.js'></script>
+    <script src='../btrap/vendor/Camera-master/scripts/jquery.easing.1.3.js'></script>
+    <script src='../btrap/vendor/Camera-master/scripts/camera.min.js'></script>
+    <!-- menu  -->
+    <script src="../btrap/vendor/menu/src/js/jquery.slimmenu.js"></script>
+    <!-- WOW js -->
+    <script src="../btrap/vendor/WOW-master/dist/wow.min.js"></script>
+    <!-- owl.carousel -->
+    <script src="../btrap/vendor/owl-carousel/owl.carousel.min.js"></script>
+    <!-- js count to -->
+    <script src="../btrap/vendor/jquery.appear.js"></script>
+    <script src="../btrap/vendor/jquery.countTo.js"></script>
+    <!-- Fancybox -->
+    <script src="../btrap/vendor/fancybox/dist/jquery.fancybox.min.js"></script>
+    <!-- Language Stitcher -->
+    <script src="../btrap/vendor/language-switcher/jquery.polyglot.language.switcher.js"></script>
+    <!-- Google map js -->
+
+
+    <!-- Theme js -->
+    <script src="../btrap/js/theme.js"></script>
+    <!--<script src="js/map-script.js"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=Past Your Google Map Key Here"></script>
+    <script src="../btrap/js/googlemap.js"></script>
+</div> <!-- /.main-page-wrapper -->
+</body>
+</html>

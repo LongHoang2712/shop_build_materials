@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js "></script>
+</head>
+<body style="background-color: black">
+<section class="h-100 h-custom" style="background-color: black;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <form th:action="@{/shopping-cart}" th:object="${detail_bill}" method="post"
+                              enctype="multipart/form-data">
+                            <div class="row g-0">
+                                <div class="col-lg-8">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                            <h6 class="mb-0 text-muted" th:text="${session.tong}"></h6>
+                                        </div>
+                                        <hr class="my-4">
+                                        <div th:if="${detail_bill.size() == 0}"> There are no products in your shopping
+                                            cart
+                                        </div>
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center"
+                                             th:each="detail :${detail_bill}">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img
+                                                        th:src="${detail.getProduct().getImage()}"
+                                                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-muted"
+                                                    th:text="${detail.getProduct().categorySet.getName()}"></h6>
+                                                <h6 class="text-black mb-0" th:text="${detail.getProduct().name}"></h6>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <input class="form-control" type="text" th:value="${detail.getQuantity()}"
+                                                       aria-label="Disabled input example" disabled readonly>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0"
+                                                    th:text="${detail.getProduct().getPrice()}*${detail.getQuantity()}"></h6>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <a th:href="@{/delete-cart/{id}(id=${detail.getId()})}">
+                                                    <button type="button" class="btn btn-danger">Delete</button>
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <hr class="my-4">
+
+                                        <div class="pt-5">
+                                            <h6 class="mb-0"><a href="./product" class="text-body"><i
+                                                    class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 bg-grey">
+                                    <div class="p-5">
+                                        <h3 class="fw-bold mb-5 mt-2 pt-1">You want clear all product ?</h3>
+                                        <hr class="my-4">
+
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <h5 class="text-uppercase"></h5>
+                                            <a href="/remove-all-cart">
+                                                <button type="button" class="btn btn-danger">Delete ALL</button>
+                                            </a>
+                                        </div>
+
+                                        <h5 class="text-uppercase mb-3">Shipping</h5>
+                                        <div class="mb-4 pb-2">
+                                            <select class="select" name="id_delivery">
+                                                <option th:each="deli :${delivery}" th:value="${deli.getId()}" selected
+                                                        th:text="${deli.getName()}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <hr class="my-4">
+
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <h5 class="text-uppercase">Total price</h5>
+                                            <h5 th:text="${total_price}"></h5>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-dark btn-block btn-lg"
+                                                data-mdb-ripple-color="dark">Payment
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

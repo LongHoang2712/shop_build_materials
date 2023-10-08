@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nedda - Business Corporation Bootstrap HTML Template</title>
+  <!-- For IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- For Resposive Device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- For Window Tab Color -->
+  <!-- Chrome, Firefox OS and Opera -->
+  <meta name="theme-color" content="#061948">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#061948">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="#061948">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="56x56" href="../btrap/images/fav-icon/icon.png">
+  <!-- Main style sheet -->
+  <link rel="stylesheet" type="text/css" href="../btrap/css/style.css">
+  <!-- responsive style sheet -->
+  <link rel="stylesheet" type="text/css" href="../btrap/css/responsive.css">
+
+  <!-- Fix Internet Explorer ______________________________________-->
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="../btrap/vendor/html5shiv.js"></script>
+  <script src="../btrap/vendor/respond.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<div class="main-page-wrapper">
+
+  <!-- ===================================================
+      Loading Transition
+  ==================================================== -->
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+  </div>
+
+
+
+  <!--
+  =============================================
+      Theme Header One
+  ==============================================
+  -->
+  <header class="header-two">
+    <div class="top-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-8 col-12">
+            <ul class="left-widget">
+              <li>Phone: (+84) 988056515</li>
+              <li>
+                <div id="polyglotLanguageSwitcher">
+                  <form action="#">
+                    <select id="polyglot-language-options">
+                      <option id="en" value="en" selected>Tiếng Việt</option>
+                      <option id="fr" value="fr">Tiếng Pháp</option>
+                      <option id="de" value="de">Tiếng Đức</option>
+                      <option id="it" value="it">Tiếng Ý</option>
+                      <option id="es" value="es">Tiếng Tây Ban Nha</option>
+                    </select>
+                  </form>
+                </div> <!-- End #polyglotLanguageSwitcher -->
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-sm-4 col-12">
+            <ul class="social-icon">
+              <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li>
+              <a th:if="${session.customer ==null}"  href="/login"><i class="fas fa-sign-out-alt" style="color: #ffffff;" aria-hidden="true"></i> Sign In</a>
+                <a th:unless="${session.customer ==null}"  href="/logout"><i class="fas fa-sign-out-alt" style="color: #ffffff;" aria-hidden="true"></i> Sign Out</a>
+              </li>
+              <li th:unless="${session.customer ==null}">
+                  <a href="/detail-bill-customer" style="color: #ffffff;" >Bill Paid</a>
+              </li>
+            </ul>
+          </div>
+        </div> <!-- /.row -->
+      </div> <!-- /.container -->
+    </div> <!-- /.top-header -->
+
+    <div class="theme-menu-wrapper">
+      <div class="container">
+        <div class="bg-wrapper clearfix">
+          <div class="logo float-left"><a href="/homepage"><img class="logmer"
+                                                                src="../btrap/images/logoPro.png" alt=""></a>
+          </div>
+          <!-- ============== Menu Warpper ================ -->
+          <div class="menu-wrapper float-left">
+            <nav id="mega-menu-holder" class="clearfix">
+              <ul class="clearfix">
+                <li class="active"><a href="/homepage">Home</a></li>
+                <li class="active">
+                  <a href="/category">Category</a>
+                  <ul class="dropdown">
+                    <li th:each="category :${list_cate}">
+                      <a href="#" th:text="${category.name}"></a>
+                      <ul th:each="product :${category.getProductSet()}" class="dropdown-menu dropdown-menu-right">
+                        <li>
+                          <a th:href="@{/detail/{id}(id=${product.getId()})}" th:text="${product.name}"></a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="active" >
+                  <a href="/manufacturer">Manufacturer</a>
+                  <ul class="dropdown">
+                    <li th:each="manu :${list_manu}">
+                      <a href="#" th:text="${manu.name}"></a>
+                      <ul th:each="product :${manu.getProductSet1()}" class="dropdown-menu dropdown-menu-right">
+                        <li>
+                          <a th:href="@{/detail/{id}(id=${product.getId()})}"  th:text="${product.name}"></a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="/product">Product</a></li>
+              </ul>
+            </nav> <!-- /#mega-menu-holder -->
+          </div> <!-- /.menu-wrapper -->
+          <div class="right-widget float-right">
+            <ul>
+              <li class="cart-icon">
+                <a href="/shopping-cart"><i class="flaticon-tool"></i><span th:if="${session.tong != null}" th:text="${session.tong}"></span>
+                  <span th:if="${session.tong == null}" th:text="0"></span></a>
+              </li>
+              <li class="search-option">
+                <div class="dropdown">
+                  <button type="button" class="dropdown-toggle" data-toggle="dropdown"><i
+                          class="fa fa-search" aria-hidden="true"></i></button>
+                  <form action="#" class="dropdown-menu">
+                    <input type="text" Placeholder="Enter Your Search">
+                    <button><i class="fa fa-search"></i></button>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </div> <!-- /.right-widget -->
+        </div> <!-- /.bg-wrapper -->
+      </div> <!-- /.container -->
+    </div> <!-- /.theme-menu-wrapper -->
+  </header> <!-- /.header-one -->
+
+
+  <div id="theme-main-banner" class="banner-one meraba" style="max-height: 750px">
+    <div data-src="../btrap/images/anhlogo1.jpg">
+      <div class="camera_caption">
+        <div class="container">
+          <p class="wow fadeInUp animated" style="color: white">KR HOANG - Construction Materials</p>
+          <h1 class="wow fadeInUp animated" data-wow-delay="0.2s" style="color: white ; font-family: 'Times New Roman'">Specializing in Wholesale - Retai of <br>Materials - Furniture</h1>
+          <a href="about.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">See Product List</a>
+        </div> <!-- /.container -->
+      </div> <!-- /.camera_caption -->
+    </div>
+    <div data-src="../btrap/images/anhlogo2.jpg">
+      <div class="camera_caption">
+        <div class="container">
+          <p class="wow fadeInUp animated white">Market coverage nationwide</p>
+          <h1 class="wow fadeInUp animated white" data-wow-delay="0.2s" style=" font-family: 'Times New Roman'">Cooperate together<br>DELTA - COMA19
+          </h1>
+          <a href="about.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">See Large factories</a>
+        </div> <!-- /.container -->
+      </div> <!-- /.camera_caption -->
+    </div>
+    <div data-src="../btrap/images/anhlogo4.jpg">
+      <div class="camera_caption">
+        <div class="container">
+          <p class="wow fadeInUp animated" style="color: white" >Contract for Public Works</p>
+          <h1 class="wow fadeInUp animated" data-wow-delay="0.2s" style="color: white; font-family: 'Times New Roman'">Park - Flower Garden<br>Asphalt Road - Alley Road</h1>
+          <a href="/register" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">Register an account to receive incentives</a>
+        </div> <!-- /.container -->
+      </div> <!-- /.camera_caption -->
+    </div>
+  </div>
+  <!--
+  =============================================
+      Our Blog
+  ==============================================
+  -->
+  <div class="our-blog section-spacing">
+    <div class="container">
+      <div class="row margintop-70">
+        <div class="col-xl-9 col-lg-8 col-12">
+          <div th:object="${product}" class="post-wrapper blog-details">
+            <div class="single-blog">
+              <div class="image-box">
+                <img th:src="'/'+${product.getImage()}" alt="">
+                <div class="overlay"><a href="#" class="date" th:text="${product.categorySet.name}"></a></div>
+              </div> <!-- /.image-box -->
+              <div class="post-meta">
+                <h5 class="title" style="" th:text="${product.name}"></h5>
+                <div th:each="manu :${product.getManufacturerSet()}">
+                <span style="font-weight: bold">Tên Manufacturer : </span><span style="color: red" th:text="${manu.name}"></span>
+                </div>
+                <div th:each="cate :${product.getCategorySet()}">
+                  <span style="font-weight: bold"> Category : </span><span style="color: red" th:text="${cate.name}"></span>
+                </div>
+                <div>
+                  <span style="font-weight: bold">Price : </span><span style="color: red" th:text="${product.price}"></span><span> $/</span> <span th:text="${product.donvi}"></span>
+                </div>
+              </div> <!-- /.post-meta -->
+              <div class="share-option clearfix">
+                <ul  class="tag-meta float-left">
+                  <li><i class="fa fa-tags" aria-hidden="true"></i> Tags :</li>
+                  <li th:each="product1 : ${list_product}"><a th:href="@{/detail/{id}(id=${product1.getId()})}" th:text="${product1.name}"></a><span> / </span></li>
+                </ul>
+                <ul  class="social-icon float-right">
+                  <li><i class="fa fa-share-alt" aria-hidden="true"></i> Share :</li>
+                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                </ul>
+              </div> <!-- /.share-option -->
+            </div> <!-- /.single-blog -->
+          </div> <!-- /.post-wrapper -->
+
+
+        </div>
+        <!-- ===================== Blog Sidebar ==================== -->
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
+          <div class="sidebar-container sidebar-search">
+            <form action="#">
+              <input type="text" placeholder="Search...">
+              <button><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+          </div> <!-- /.sidebar-search -->
+          <div class="sidebar-container sidebar-categories">
+            <h5 class="title">Categories</h5>
+            <ul th:each="cate :${list_cate}">
+              <li><a href="#" th:text="${cate.name}"></a></li>
+            </ul>
+          </div> <!-- /.sidebar-categories -->
+          <div class="sidebar-container sidebar-recent-post">
+            <h5 class="title"> Product </h5>
+            <ul th:each="product :${list_product}">
+              <li class="clearfix">
+                <img th:src="'/'+${product.getImage()}" alt="" class="float-left">
+                <div class="post float-left">
+                  <a th:href="@{/detail/{id}(id=${product.getId()})}" th:text="${product.name}"></a>
+                  <div class="date"><span th:text="${product.price}"></span><span>$ / </span><span th:text="${product.donvi}"></span></div>
+                </div>
+              </li>
+            </ul>
+          </div>  <!-- /.sidebar-archives -->
+          <div class="sidebar-tags">
+            <h5 class="title">tags</h5>
+            <ul class="clearfix" th:each="product1 :${list_product}">
+
+              <li  th:object="${product}" th:if="${product.id} == ${product1.id}" class="active"><a href="#" th:text="${product.name}"></a></li>
+              <li><a href="#" th:unless="${product.id} == ${product1.id}" th:text="${product1.name}"></a></li>
+            </ul>
+          </div> <!-- /.sidebar-tags -->
+        </div> <!-- /.col- -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </div> <!-- /.blog-details -->
+
+
+
+
+
+  <!--
+  =====================================================
+      Footer
+  =====================================================
+  -->
+  <footer class="theme-footer-two">
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-6 col-12 logo-widget">
+            <div class="logo"><a href="index.html"><img class="logmer" src="../btrap/images/logoPro.png"
+                                                        alt=""></a></div>
+            <p>Company headquarters in Hanoi, Vietnam</p>
+            <ul class="social-icon">
+              <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>
+          </div> <!-- /.logo-widget -->
+          <div class="col-lg-2 col-sm-6 col-12 footer-list">
+            <h6 class="title">EXPLORE</h6>
+            <ul>
+              <li><a href="/product">List Product</a></li>
+              <li><a href="/category">List Category</a></li>
+              <li><a href="/manufacturer">List Manufacturer</a></li>
+              <li><a href="/homepage">HomePage</a></li>
+              <li><a href="/login">Login</a></li>
+            </ul>
+          </div> <!-- /.footer-list -->
+          <div class="col-lg-3 col-sm-6 col-12 footer-gallery">
+            <h6 class="title">Scenic Vietnam</h6>
+            <div class="wrapper">
+              <div class="row">
+                <div class="col-4">
+                  <a href="../btrap/images/vn1.1.jpg" data-fancybox="gallery"
+                     data-caption="Caption for single image" class="fancybox"><img
+                          src="../btrap/images/vn1.jpg" alt=""></a>
+                </div>
+                <div class="col-4">
+                  <a href="../btrap/images/vn2.2.jpg" data-fancybox="gallery"
+                     data-caption="Caption for single image" class="fancybox"><img
+                          src="../btrap/images/vn2.2.jpg" alt=""></a>
+                </div>
+                <div class="col-4">
+                  <a href="../btrap/images/vn3.3.jpg" data-fancybox="gallery"
+                     data-caption="Caption for single image" class="fancybox"><img
+                          src="../btrap/images/vn3.3.jpg" alt=""></a>
+                </div>
+                <div class="col-4">
+                  <a href="../btrap/images/vn4.4.jpg" data-fancybox="gallery"
+                     data-caption="Caption for single image" class="fancybox"><img
+                          src="../btrap/images/vn4.4.jpg" alt=""></a>
+                </div>
+                <div class="col-4">
+                  <a href="../btrap/images/vn5.5.jpg" data-fancybox="gallery"
+                     data-caption="Caption for single image" class="fancybox"><img
+                          src="../btrap/images/vn5.5.jpg" alt=""></a>
+                </div>
+                <div class="col-4">
+                  <a href="../btrap/images/vn6.6.jpg" data-fancybox="gallery"
+                     data-caption="Caption for single image" class="fancybox"><img
+                          src="../btrap/images/vn6.6.jpg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div> <!-- /.footer-gallery -->
+
+          <div class="col-lg-3 col-sm-6 col-12 contact-widget">
+            <h6 class="title">CONTACT</h6>
+            <ul>
+              <li>
+                <i class="flaticon-direction-signs"></i>
+                22 Lane 131 Tran Phu, Ha Dong District, Ha Dong, Hanoi City, Vietnam
+              </li>
+              <li>
+                <i class="flaticon-multimedia-1"></i>
+                <p href="#">hoanglongtt8@gmail.com</p>
+              </li>
+              <li>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <p href="#">+84 988-056-515</p>
+              </li>
+            </ul>
+          </div> <!-- /.contact-widget -->
+        </div> <!-- /.row -->
+      </div> <!-- /.container -->
+    </div> <!-- /.top-footer -->
+    <div class="bottom-footer">
+      <div class="container">
+        <p>Make By <a class="white-link" href="https://www.facebook.com/long.hoangquoc.79/"> Hoang Quoc Long</a> / All Rights Reserved. </p>
+      </div>
+    </div> <!-- /.bottom-footer -->
+  </footer> <!-- /.theme-footer-two -->
+
+
+
+
+  <!-- Scroll Top Button -->
+  <button class="scroll-top tran3s">
+    <i class="fa fa-angle-up" aria-hidden="true"></i>
+  </button>
+
+
+
+  <!-- Optional JavaScript _____________________________  -->
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- jQuery -->
+
+  <script src="../btrap/vendor/jquery.2.2.3.min.js"></script>
+  <!-- Popper js -->
+  <script src="../btrap/vendor/popper.js/popper.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="../btrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Camera Slider -->
+  <script src='../btrap/vendor/Camera-master/scripts/jquery.mobile.customized.min.js'></script>
+  <script src='../btrap/vendor/Camera-master/scripts/jquery.easing.1.3.js'></script>
+  <script src='../btrap/vendor/Camera-master/scripts/camera.min.js'></script>
+  <!-- menu  -->
+  <script src="../btrap/vendor/menu/src/js/jquery.slimmenu.js"></script>
+  <!-- WOW js -->
+  <script src="../btrap/vendor/WOW-master/dist/wow.min.js"></script>
+  <!-- owl.carousel -->
+  <script src="../btrap/vendor/owl-carousel/owl.carousel.min.js"></script>
+  <!-- js count to -->
+  <script src="../btrap/vendor/jquery.appear.js"></script>
+  <script src="../btrap/vendor/jquery.countTo.js"></script>
+  <!-- Fancybox -->
+  <script src="../btrap/vendor/fancybox/dist/jquery.fancybox.min.js"></script>
+  <!-- Language Stitcher -->
+  <script src="../btrap/vendor/language-switcher/jquery.polyglot.language.switcher.js"></script>
+  <!-- Google map js -->
+
+
+  <!-- Theme js -->
+  <script src="../btrap/js/theme.js"></script>
+  <!--<script src="js/map-script.js"></script> -->
+</div> <!-- /.main-page-wrapper -->
+</body>
+</html>

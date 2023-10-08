@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nedda - Business Corporation Bootstrap HTML Template</title>
+    <!-- For IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- For Resposive Device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- For Window Tab Color -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#061948">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#061948">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#061948">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="56x56" href="../btrap/images/fav-icon/icon.png">
+    <!-- Main style sheet -->
+    <link rel="stylesheet" type="text/css" href="../btrap/css/style.css">
+    <!-- responsive style sheet -->
+    <link rel="stylesheet" type="text/css" href="../btrap/css/responsive.css">
+
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- Fix Internet Explorer ______________________________________-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="../btrap/vendor/html5shiv.js"></script>
+    <script src="../btrap/vendor/respond.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<div class="main-page-wrapper">
+
+
+    <!-- ===================================================
+        Loading Transition
+    ==================================================== -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
+
+
+    <!--
+    =============================================
+        Theme Header One
+    ==============================================
+    -->
+    <header class="header-two">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-8 col-12">
+                        <ul class="left-widget">
+                            <li>Phone: (+84) 988056515</li>
+                            <li>
+                                <div id="polyglotLanguageSwitcher">
+                                    <form action="#">
+                                        <select id="polyglot-language-options">
+                                            <option id="en" value="en" selected>Tiếng Việt</option>
+                                            <option id="fr" value="fr">Tiếng Pháp</option>
+                                            <option id="de" value="de">Tiếng Đức</option>
+                                            <option id="it" value="it">Tiếng Ý</option>
+                                            <option id="es" value="es">Tiếng Tây Ban Nha</option>
+                                        </select>
+                                    </form>
+                                </div> <!-- End #polyglotLanguageSwitcher -->
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-4 col-12">
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li>
+                                <a th:if="${session.customer ==null}" href="/login"><i class="fas fa-sign-out-alt"
+                                                                                       style="color: #ffffff;"
+                                                                                       aria-hidden="true"></i> Sign
+                                    In</a>
+                                <a th:unless="${session.customer ==null}" href="/logout"><i class="fas fa-sign-out-alt"
+                                                                                            style="color: #ffffff;"
+                                                                                            aria-hidden="true"></i> Sign
+                                    Out</a>
+                            </li>
+                            <li th:unless="${session.customer ==null}">
+                                <a aria-hidden="true" href="/detail-bill-customer" style="color: #ffffff;">Bill Paid</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.top-header -->
+
+        <div class="theme-menu-wrapper">
+            <div class="container">
+                <div class="bg-wrapper clearfix">
+                    <div class="logo float-left"><a href="/homepage"><img class="logmer"
+                                                                          src="../btrap/images/logoPro.png" alt=""></a>
+                    </div>
+                    <!-- ============== Menu Warpper ================ -->
+                    <div class="menu-wrapper float-left">
+                        <nav id="mega-menu-holder" class="clearfix">
+                            <ul class="clearfix">
+                                <li class="active"><a href="/homepage">Home</a></li>
+                                <li class="active">
+                                    <a href="/category">Category</a>
+                                    <ul class="dropdown">
+                                        <li th:each="category :${list_cate}">
+                                            <a href="#" th:text="${category.name}"></a>
+                                            <ul th:each="product :${category.getProductSet()}"
+                                                class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a th:href="@{/detail/{id}(id=${product.getId()})}"
+                                                       th:text="${product.name}"></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="active">
+                                    <a href="/manufacturer">Manufacturer</a>
+                                    <ul class="dropdown">
+                                        <li th:each="manu :${list_manu}">
+                                            <a href="#" th:text="${manu.name}"></a>
+                                            <ul th:each="product :${manu.getProductSet1()}"
+                                                class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a th:href="@{/detail/{id}(id=${product.getId()})}"
+                                                       th:text="${product.name}"></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="/product">product</a></li>
+                            </ul>
+                        </nav> <!-- /#mega-menu-holder -->
+                    </div> <!-- /.menu-wrapper -->
+                    <div class="right-widget float-right">
+                        <ul>
+                            <li class="cart-icon">
+                                <a href="/shopping-cart"><i class="flaticon-tool"></i> <span
+                                        th:if="${session.tong != null}" th:text="${session.tong}"></span>
+                                    <span th:if="${session.tong == null}" th:text="0"></span></a>
+                            </li>
+                            <li class="search-option">
+                                <div class="dropdown">
+                                    <button type="button" class="dropdown-toggle" data-toggle="dropdown"><a
+                                    ></a><i
+                                            class="fa fa-search" aria-hidden="true"></i></button>
+                                    <form class="dropdown-menu">
+                                        <input name="txt_search" type="text"
+                                               Placeholder="Enter Your Search">
+                                        <button><i class="fa fa-search"></i></button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> <!-- /.right-widget -->
+                </div> <!-- /.bg-wrapper -->
+            </div> <!-- /.container -->
+        </div> <!-- /.theme-menu-wrapper -->
+    </header>   <!-- /.header-one -->
+
+    <div id="theme-main-banner" class="banner-one meraba" style="max-height: 750px">
+        <div data-src="../btrap/images/anhlogo1.jpg">
+            <div class="camera_caption">
+                <div class="container">
+                    <p class="wow fadeInUp animated" style="color: white">KR HOANG - Construction Materials</p>
+                    <h1 class="wow fadeInUp animated" data-wow-delay="0.2s"
+                        style="color: white ; font-family: 'Times New Roman'">Specializing in Wholesale - Retai of <br>Materials
+                        - Furniture</h1>
+                    <a href="about.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">See
+                        Product List</a>
+                </div> <!-- /.container -->
+            </div> <!-- /.camera_caption -->
+        </div>
+        <div data-src="../btrap/images/anhlogo2.jpg">
+            <div class="camera_caption">
+                <div class="container">
+                    <p class="wow fadeInUp animated white">Market coverage nationwide</p>
+                    <h1 class="wow fadeInUp animated white" data-wow-delay="0.2s"
+                        style=" font-family: 'Times New Roman'">Cooperate together<br>DELTA - COMA19
+                    </h1>
+                    <a href="about.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">See Large
+                        factories</a>
+                </div> <!-- /.container -->
+            </div> <!-- /.camera_caption -->
+        </div>
+        <div data-src="../btrap/images/anhlogo4.jpg">
+            <div class="camera_caption">
+                <div class="container">
+                    <p class="wow fadeInUp animated" style="color: white">Contract for Public Works</p>
+                    <h1 class="wow fadeInUp animated" data-wow-delay="0.2s"
+                        style="color: white; font-family: 'Times New Roman'">Park - Flower Garden<br>Asphalt Road -
+                        Alley Road</h1>
+                    <a href="/register" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">Register
+                        an account to receive incentives</a>
+                </div> <!-- /.container -->
+            </div> <!-- /.camera_caption -->
+        </div>
+    </div>
+    <!--
+    =============================================
+        Our Blog
+    ==============================================
+    -->
+
+    <div class="blog-inner-page section-spacing"
+         style="margin-top: -70px ">
+        <div class="container">
+
+            <div class="row margintop-70">
+                <!-- ===================== Blog Sidebar ==================== -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
+                    <div class="sidebar-container sidebar-search" style="margin-top: 50px">
+                        <form>
+                            <input name="txt_search" type="text" placeholder="Search...">
+                            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div> <!-- /.sidebar-search -->
+                    <div class="sidebar-container sidebar-categories">
+                        <h5 class="title">Category</h5>
+                        <ul>
+                            <li th:each="category :${list_cate}"><a href="/category" th:text="${category.name}"></a>
+                            </li>
+
+                        </ul>
+                    </div> <!-- /.sidebar-categories -->
+                    <div class="sidebar-container sidebar-recent-post">
+                        <h5 class="title">Recent Product</h5>
+                        <ul th:each="product : ${list_product}">
+                            <li class="clearfix">
+                                <img th:src="${product.getImage()}" alt="" class="float-left">
+                                <div class="post float-left">
+                                    <a th:href="@{/detail/{id}(id=${product.getId()})}"
+                                       th:text="${product.getName()}"></a>
+                                    <div class="date" style="display: flex"><p th:text="${product.getPrice()}"></p>
+                                        <span>-</span>
+                                        <p> Dollar</p></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>  <!-- /.sidebar-archives -->
+                    <div class="sidebar-tags">
+                        <h5 class="title">tags</h5>
+                        <ul class="clearfix">
+                            <li class="active"><a href="/product">Product List</a></li>
+                            <li><a href="/manufacturer">Manufacturer List</a></li>
+                            <li><a href="/category">Category</a></li>
+                            <li><a href="/homepage">Home Page</a></li>
+                            <li><a href="/register">Register</a></li>
+                            <li><a href="/login">Sign In</a></li>
+                        </ul>
+                    </div> <!-- /.sidebar-tags -->
+                </div> <!-- /.col- -->
+                <div class="col-xl-9 col-lg-8 col-12 our-blog">
+                    <div style="margin-top: 50px;background-image: url('https://media.istockphoto.com/id/500507478/vi/anh/t%C6%B0%E1%BB%9Dng.jpg?s=2048x2048&w=is&k=20&c=t2sQLya3j4MmzL6H99zxPLl8NV4FhWWH7h54QGD-NdE=');border-radius: 10px">
+                        <h1
+                                style="margin-bottom: 20px ;font-family: 'Source Sans Pro', sans-serif ; color: white;padding: 1.5rem;">
+                            Detail Bill Order</h1>
+                    </div>
+                    <div>
+                        <div class="mb-3" style="display:flex;">
+                            <div style="display: block">
+                                <p>WELCOME BACK</p>
+                                <h3 th:text="${session.user_view.getName()}"></h3>
+                            </div>
+                            <div style="display: block ; margin-left: 440px">
+                                <h4>Total amount paid :</h4>
+                                <h3 id="total">
+                                                        <span class="text-xs font-semibold leading-tight text-slate-400"
+                                                        ></span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email : </label>
+                            <input class="form-control" type="text" th:value="${session.user_view.getEmail()}"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Delivery address :</label>
+                            <input class="form-control" type="text" th:value="${session.user_view.getAddress()}"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input class="form-control" type="text" th:value="${session.user_view.getPhone_number()}"
+                                   aria-label="Disabled input example" disabled readonly>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr style="text-align: center">
+                            <th scope="col">#</th>
+                            <th scope="col">Code Bill</th>
+                            <th scope="col">Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="bill :${session.user_view.getBills()}">
+                        <tr style="text-align: center">
+                            <th scope="row" th:text="${bill.getId()}"></th>
+                            <td><p th:text="${bill.getCode()}"></p></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Detail Bill
+                                    </button>
+                                    <div class="dropdown-menu" style="width: 700px">
+                                        <div class="row" style="margin-left: 10px">
+                                            <h6>Time Created : </h6>
+                                            <h5 th:text="${bill.getDate_created()}"></h5>
+                                        </div>
+                                        <div class="row" style="padding: 10px"
+                                        >
+                                            <div class="col-lg-6" th:each="detailbills :${bill.getDetailBills()}">
+                                                <div class="card" style="margin: 10px ;max-width: 280px ;border-radius: 20px">
+                                                    <div99 style="display:none" id="div99"
+                                                           th:text="${detailbills.getProduct().getPrice()*detailbills.getQuantity()}"></div99>
+                                                    <div style="margin-top: 10px ; width: 100%; margin-bottom: 10px;">
+                                                        <div class="post-wrapper" style="margin-top: 10px">
+                                                            <div class=" mb-3"
+                                                                 style=" margin-top: 20px;max-width: 300px;">
+                                                                <div class="row g-0">
+                                                                    <div style="display: block ;">
+                                                                        <div style="text-align: center ;margin-top: -25px">
+                                                                            <img style="width: 250px; height: 190px; object-fit: cover;margin: auto auto;margin-top: 10px;margin-bottom: -15px;border-radius: 10px;border:1px solid black"
+                                                                                 th:src="${detailbills.getProduct().getImage()}"
+                                                                                 class="img-fluid rounded-start"
+                                                                                 alt="...">
+                                                                        </div>
+                                                                        <div class="card-body "
+                                                                             style="width: 300px;text-align: center">
+                                                                            <div style="text-align: center">
+                                                                                <p th:text="${detailbills.getProduct().getName()}"
+                                                                                   style="font-size: 15px;font-family: 'Source Sans Pro', sans-serif;font-weight: bold;
+                                            text-transform: uppercase;background: black;color: white ;text-align: center ;width: 250px;margin-left: 8px
+"></p>
+                                                                            </div>
+                                                                            <div class="row"
+                                                                                 style="margin-top: 30px;margin-left: 7px">
+                                                                                <p class="col-3"
+                                                                                   style=" font-family: 'Dutch801 Rm BT' ; font-weight: bold;display: flex">
+                                                                                    Price</p>
+                                                                                <p class="col-3"
+                                                                                   style=" font-weight: bold ;display: flex"
+                                                                                   th:text="${detailbills.getProduct().getPrice()}"></p>
+                                                                                <p class="col-1">$ </p>
+                                                                                <p style="display: flex" class="col-3"
+                                                                                   th:text="${detailbills.getProduct().getDonvi()}"></p>
+                                                                            </div>
+                                                                            <div class="card-text"
+                                                                                 style="text-align: center">
+                                                                                <p><small class="text-body-secondary"
+                                                                                          style="color: red;margin-left: 7px"
+                                                                                          th:text="${detailbills.getProduct().getStatus().getName()}"></small>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card-body " style="width: 250px">
+                                                                            <form th:action="@{/add}">
+                                                                                <div role="group"
+                                                                                     aria-label="Basic mixed styles example"
+                                                                                     style="display: flex;margin-left: 22px">
+
+                                                                                    <input style="display: none" type="text" name="id_product" th:value="${detailbills.getProduct().getId()}">
+                                                                                    <button type="button" class="btn btn-warning"
+                                                                                            style="margin-right: 10px"><a
+                                                                                            style="color: white;width: 50px"
+                                                                                            th:href="@{/detail/{id}(id=${detailbills.getProduct().getId()})}">Detail</a>
+                                                                                    </button>
+                                                                                    <input id="soluong" type="text"
+                                                                                           class="form-control" style="width: 50px"
+                                                                                           placeholder="Quantity" name="soluong"
+                                                                                           aria-describedby="basic-addon1">
+                                                                                    <button type="submit" class="btn btn-danger"
+                                                                                            style="margin-left: 10px">
+                                                                                        <a style="color: white ;width: 50px"
+                                                                                        >Add </a>
+                                                                                    </button>
+
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table><!-- /.post-wrapper -->
+                    <!-- /.post-wrapper -->
+
+                </div>
+                <div class="theme-pagination" style="margin-left: 50%">
+                    <ul th:each="i : ${#numbers.sequence(1,totalpages)}"
+                        style="display: flex ;display: inline-block; justify-content: center; ">
+                        <th:block th:switch="${i != currentpage}">
+                            <li style="display: inline-block;"><a th:case="true"
+                                                                  th:href="@{'/detail-bill-customer?page='+${i}}">[[${i}]]</a>
+                            </li>
+                            <li style="display: inline-block;" class="active"><a th:case="false"
+                                                                                 th:href="@{'/detail-bill-customer?page='+${i}}">[[${i}]]</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </div> <!-- /.blog-inner-page -->
+
+
+    <!--
+    =====================================================
+        Footer
+    =====================================================
+    -->
+    <footer class="theme-footer-two">
+        <div class="top-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-12 logo-widget">
+                        <div class="logo"><a href="index.html"><img class="logmer" src="../btrap/images/logoPro.png"
+                                                                    alt=""></a></div>
+                        <p>Company headquarters in Hanoi, Vietnam</p>
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div> <!-- /.logo-widget -->
+                    <div class="col-lg-2 col-sm-6 col-12 footer-list">
+                        <h6 class="title">EXPLORE</h6>
+                        <ul>
+                            <li><a href="/product">List Product</a></li>
+                            <li><a href="/category">List Category</a></li>
+                            <li><a href="/manufacturer">List Manufacturer</a></li>
+                            <li><a href="/homepage">HomePage</a></li>
+                            <li><a href="/login">Login</a></li>
+                        </ul>
+                    </div> <!-- /.footer-list -->
+                    <div class="col-lg-3 col-sm-6 col-12 footer-gallery">
+                        <h6 class="title">Scenic Vietnam</h6>
+                        <div class="wrapper">
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn1.1.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn1.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn2.2.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn2.2.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn3.3.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn3.3.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn4.4.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn4.4.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn5.5.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn5.5.jpg" alt=""></a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../btrap/images/vn6.6.jpg" data-fancybox="gallery"
+                                       data-caption="Caption for single image" class="fancybox"><img
+                                            src="../btrap/images/vn6.6.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.footer-gallery -->
+
+                    <div class="col-lg-3 col-sm-6 col-12 contact-widget">
+                        <h6 class="title">CONTACT</h6>
+                        <ul>
+                            <li>
+                                <i class="flaticon-direction-signs"></i>
+                                22 Lane 131 Tran Phu, Ha Dong District, Ha Dong, Hanoi City, Vietnam
+                            </li>
+                            <li>
+                                <i class="flaticon-multimedia-1"></i>
+                                <p href="#">hoanglongtt8@gmail.com</p>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <p href="#">+84 988-056-515</p>
+                            </li>
+                        </ul>
+                    </div> <!-- /.contact-widget -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.top-footer -->
+        <div class="bottom-footer">
+            <div class="container">
+                <p>Make By <a class="white-link" href="https://www.facebook.com/long.hoangquoc.79/"> Hoang Quoc Long</a>
+                    / All Rights Reserved. </p>
+            </div>
+        </div> <!-- /.bottom-footer -->
+    </footer>  <!-- /.theme-footer-two -->
+
+
+    <!-- Scroll Top Button -->
+    <button class="scroll-top tran3s">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </button>
+
+
+    <!-- Optional JavaScript _____________________________  -->
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery -->
+    <script>
+        var sum = 0;
+
+        for (var i = 0; i < document.querySelectorAll("div99").length; i++) {
+            var div = document.querySelectorAll("div99")[i];
+            var value = parseInt(div.textContent);
+
+            sum += value;
+        }
+
+        // Tạo thẻ span
+        var span = document.createElement("span");
+        span.textContent = sum;
+
+        // Thêm thẻ span vào thẻ div
+        document.getElementById("total").appendChild(span);
+    </script>
+    <script src="../btrap/vendor/jquery.2.2.3.min.js"></script>
+    <!-- Popper js -->
+    <script src="../btrap/vendor/popper.js/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../btrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Camera Slider -->
+    <script src='../btrap/vendor/Camera-master/scripts/jquery.mobile.customized.min.js'></script>
+    <script src='../btrap/vendor/Camera-master/scripts/jquery.easing.1.3.js'></script>
+    <script src='../btrap/vendor/Camera-master/scripts/camera.min.js'></script>
+    <!-- menu  -->
+    <script src="../btrap/vendor/menu/src/js/jquery.slimmenu.js"></script>
+    <!-- WOW js -->
+    <script src="../btrap/vendor/WOW-master/dist/wow.min.js"></script>
+    <!-- owl.carousel -->
+    <script src="../btrap/vendor/owl-carousel/owl.carousel.min.js"></script>
+    <!-- js count to -->
+    <script src="../btrap/vendor/jquery.appear.js"></script>
+    <script src="../btrap/vendor/jquery.countTo.js"></script>
+    <!-- Fancybox -->
+    <script src="../btrap/vendor/fancybox/dist/jquery.fancybox.min.js"></script>
+    <!-- Language Stitcher -->
+    <script src="../btrap/vendor/language-switcher/jquery.polyglot.language.switcher.js"></script>
+    <!-- Theme js -->
+    <script src="../btrap/js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</div> <!-- /.main-page-wrapper -->
+</body>
+</html>
