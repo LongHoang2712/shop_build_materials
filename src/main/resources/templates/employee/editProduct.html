@@ -279,13 +279,13 @@
         <!-- breadcrumb -->
         <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
           <li class="text-sm leading-normal">
-            <a class="opacity-50 text-slate-700" href="javascript:;">Pages</a>
+            <a class="opacity-50 text-slate-700" href="javascript:;">Manager</a>
           </li>
           <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']"
-              aria-current="page">Tables
+              aria-current="page">Product
           </li>
         </ol>
-        <h6 class="mb-0 font-bold capitalize">Tables</h6>
+        <h6 class="mb-0 font-bold capitalize">Update</h6>
       </nav>
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -430,7 +430,7 @@
       <div class="flex-none w-full max-w-full px-3">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
           <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-            <h4>Sửa Product </h4>
+            <h4>Edit Product </h4>
           </div>
           <div class="flex-auto px-0 pt-0 pb-2">
 
@@ -449,14 +449,14 @@
                 <div style="float: left">
                   <input type="hidden" name="id_product" th:value="${product.id}" >
                 <input type="hidden" name="id" th:value="${product.id}" th:field="*{id}">
-                <label> Tên Product </label>
-                <input th:value="${product.name}" th:field="*{name}"  type="text" placeholder="Nhập tên Product " class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
-                <label>Số  Lượng</label>
-                <input th:value="${product.amount}" th:field="*{amount}" type="text" placeholder="Nhập số lượng Product " class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
-                <label> Đơn vị tính tiền</label>
-                <input th:value="${product.donvi}" th:field="*{donvi}" type="text" placeholder="Nhập đơn vị tính tiền - kg,mét,viên" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
-                <label> Giá tiền/Đơn vị</label>
-                <input th:value="${product.price}" th:field="*{price}" type="text" placeholder="Nhập giá tiền cho 1 đơn vị Product " class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
+                <label>Product name </label>
+                <input th:value="${product.name}" th:field="*{name}"  type="text" placeholder=" Product name " class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
+                <label>Quantity</label>
+                <input th:value="${product.amount}" th:field="*{amount}" type="text" placeholder="Quantity of product " class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
+                <label>$/Unit</label>
+                <input th:value="${product.donvi}" th:field="*{donvi}" type="text" placeholder="Kg,Metter,Pellet" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
+                <label>Price</label>
+                <input th:value="${product.price}" th:field="*{price}" type="text" placeholder="Price " class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></input>
                 <div >
                   <label >Category : </label>
                   <select  class="form-select" id="catelist" name="id_catelist" th:field="*{categorySet}" >
@@ -465,12 +465,12 @@
                   </select>
                 </div>
                 <div >
-                  <label >Xuởng Sản Xuất : </label>
+                  <label >Manufacturer : </label>
  <input  type="checkbox" th:each="manufacturer :${list_manu}"  th:value="${manufacturer.id}" th:text="${manufacturer.name}" th:field="*{manufacturerSet}" th:checked="${product.getManufacturerSet().containsAll(manufacturer)}" >
 
                 </div>
                 <div >
-                  <label >Trạng Thái Product  : </label>
+                  <label >Product status  : </label>
                   <select  class="form-select" id="catelist2" name="id_catelist2" th:field="*{status}" >
                     <option th:each="stt_sl :${product.getStatus()}" th:value="${stt_sl.id}" selected="selected" th:text="${stt_sl.name}"></option>
                     <option th:each="status :${list_status}" th:value="${status.id}" th:text="${status.name}" > </option>
@@ -479,7 +479,7 @@
 
                   <button  style="margin-left: 375px ; margin-bottom: 20px" type="submit"
                            class="inline-block px-8 py-2 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer active:opacity-85 leading-pro text-xs ease-soft-in tracking-tight-soft bg-150 bg-x-25 hover:scale-102 active:shadow-soft-xs border-fuchsia-500 text-fuchsia-500 hover:text-fuchsia-500 hover:opacity-75 hover:shadow-none active:scale-100 active:border-fuchsia-500 active:bg-fuchsia-500 active:text-white hover:active:border-fuchsia-500 hover:active:bg-transparent hover:active:text-fuchsia-500 hover:active:opacity-75">
-                    Add Product  New
+                    Update Product
                   </button>
                 </div>
 
