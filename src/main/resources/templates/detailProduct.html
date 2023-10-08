@@ -201,7 +201,7 @@
               <div class="post-meta">
                 <h5 class="title" style="" th:text="${product.name}"></h5>
                 <div th:each="manu :${product.getManufacturerSet()}">
-                <span style="font-weight: bold">Tên Manufacturer : </span><span style="color: red" th:text="${manu.name}"></span>
+                <span style="font-weight: bold">Manufacturer : </span><span style="color: red" th:text="${manu.name}"></span>
                 </div>
                 <div th:each="cate :${product.getCategorySet()}">
                   <span style="font-weight: bold"> Category : </span><span style="color: red" th:text="${cate.name}"></span>
